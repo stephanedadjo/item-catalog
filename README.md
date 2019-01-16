@@ -1,5 +1,5 @@
 # item-catalog
-Item Catalog
+
 Dadjo Kpekouma
 
 About
