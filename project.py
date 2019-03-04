@@ -57,7 +57,7 @@ def showCatalogJSON():
     '/api/v1/categories/<int:category_id>/item/<int:catalog_item_id>/JSON')
 def catalogItemJSON(category_id, catalog_item_id):
     """Returns JSON of selected item in catalog"""
-    #session = DBSession()
+    # session = DBSession()
     Catalog_Item = session.query(
         CatalogItem).filter_by(id=catalog_item_id).one()
     return jsonify(Catalog_Item=Catalog_Item.serialize)
@@ -66,7 +66,7 @@ def catalogItemJSON(category_id, catalog_item_id):
 @app.route('/api/v1/categories/JSON')
 def categoriesJSON():
     """Returns JSON of all categories in catalog"""
-    #session = DBSession()
+    # session = DBSession()
     categories = session.query(Category).all()
     return jsonify(Categories=[r.serialize for r in categories])
 
@@ -79,7 +79,7 @@ def categoriesJSON():
 @app.route('/categories/')
 def showCatalog():
     """Returns catalog page with all categories and recently added items"""
-    #session = DBSession()
+    # session = DBSession()
     categories = session.query(Category).all()
     items = session.query(CatalogItem).order_by(CatalogItem.id.desc())
     quantity = items.count()
@@ -98,7 +98,7 @@ def showCatalog():
 @login_required
 def newCategory():
     """Allows user to create new category"""
-    #session = DBSession()
+    # session = DBSession()
     if request.method == 'POST':
         print login_session
         if 'user_id' not in login_session and 'email' in login_session:
@@ -119,7 +119,7 @@ def newCategory():
 @login_required
 def editCategory(category_id):
     """Allows user to edit an existing category"""
-    #session = DBSession()
+    # session = DBSession()
     editedCategory = session.query(
         Category).filter_by(id=category_id).one()
     if editedCategory.user_id != login_session['user_id']:
@@ -140,7 +140,7 @@ def editCategory(category_id):
 @app.route('/categories/<int:category_id>/delete/', methods=['GET', 'POST'])
 @login_required
 def deleteCategory(category_id):
-    #session = DBSession()
+    # session = DBSession()
     """Allows user to delete an existing category"""
     categoryToDelete = session.query(
         Category).filter_by(id=category_id).one()
@@ -165,7 +165,7 @@ def deleteCategory(category_id):
 @app.route('/categories/<int:category_id>/items/')
 def showCategoryItems(category_id):
     """returns items in category"""
-    #session = DBSession()
+    # session = DBSession()
     category = session.query(Category).filter_by(id=category_id).one()
     categories = session.query(Category).all()
     creator = getUserInfo(category.user_id)
@@ -186,7 +186,7 @@ def showCategoryItems(category_id):
 @app.route('/categories/<int:category_id>/item/<int:catalog_item_id>/')
 def showCatalogItem(category_id, catalog_item_id):
     """returns category item"""
-    #session = DBSession()
+    # session = DBSession()
     category = session.query(Category).filter_by(id=category_id).one()
     item = session.query(
         CatalogItem).filter_by(id=catalog_item_id).one()
@@ -201,7 +201,7 @@ def showCatalogItem(category_id, catalog_item_id):
 @login_required
 def newCatalogItem():
     """return "This page will be for making a new catalog item" """
-    #session = DBSession()
+    # session = DBSession()
     categories = session.query(Category).all()
     if request.method == 'POST':
         addNewItem = CatalogItem(
@@ -225,7 +225,7 @@ def newCatalogItem():
 @login_required
 def editCatalogItem(category_id, catalog_item_id):
     """return "This page will be for making a updating catalog item" """
-    #session = DBSession()
+    # session = DBSession()
     editedItem = session.query(
         CatalogItem).filter_by(id=catalog_item_id).one()
     if editedItem.user_id != login_session['user_id']:
@@ -258,7 +258,7 @@ def editCatalogItem(category_id, catalog_item_id):
 @login_required
 def deleteCatalogItem(category_id, catalog_item_id):
     """return "This page will be for deleting a catalog item" """
-    #session = DBSession()
+    # session = DBSession()
     itemToDelete = session.query(
         CatalogItem).filter_by(id=catalog_item_id).one()
     if itemToDelete.user_id != login_session['user_id']:
@@ -492,7 +492,7 @@ def gdisconnect():
 # User helper functions
 def getUserID(email):
     try:
-        #session = DBSession()
+        # session = DBSession()
         user = session.query(User).filter_by(email=email).one()
         return user.id
     except:
@@ -500,13 +500,13 @@ def getUserID(email):
 
 
 def getUserInfo(user_id):
-    #session = DBSession()
+    # session = DBSession()
     user = session.query(User).filter_by(id=user_id).one()
     return user
 
 
 def createUser(login_session):
-    #session = DBSession()
+    # session = DBSession()
     newUser = User(
         name=login_session['username'],
         email=login_session['email'],
